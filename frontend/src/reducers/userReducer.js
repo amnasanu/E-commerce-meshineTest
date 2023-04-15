@@ -7,6 +7,8 @@ import {
     USER_LOGIN_SUCCESS ,
     USER_LOGIN_FAIL ,
 
+    USER_LOGOUT,
+
 
  } from '../constants/userConstants'
 
@@ -25,6 +27,9 @@ export const userRegisterReducers=(state={}, action) =>{
         
         case USER_REGISTER_FAIL:
             return {loading:false,error: action.payload}
+
+        case USER_LOGOUT:
+            return {}
  
         
         
@@ -47,6 +52,9 @@ export const userLoginReducers=(state={}, action) =>{
         
         case USER_LOGIN_FAIL:
             return {loading:false,error: action.payload}
+
+        case USER_LOGOUT:
+                return {}
 
         
         

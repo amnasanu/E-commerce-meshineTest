@@ -1,6 +1,7 @@
 import React ,{useEffect} from 'react';
 import Navbar from '../../Components/Header/Navbar';
 import { useSelector, useDispatch } from 'react-redux';
+import { useSearchParams } from 'react-router-dom'
 import { listProducts } from '../../Actions/productAction'
 import { Link } from 'react-router-dom'
 import './home.css'
@@ -10,9 +11,13 @@ function HomeScreen() {
   const { error, loading, products } = productList;
   const dispatch = useDispatch()
 
+  const [searchParams] = useSearchParams()
+  const keyword = searchParams.get('keyword')
+
+
   useEffect(() => {
-    dispatch(listProducts())
-  }, [dispatch])
+    dispatch(listProducts(keyword))
+  }, [dispatch, keyword])
 
   return (
     <div>

@@ -2,10 +2,10 @@ import React, { useEffect } from 'react'
 import { Link, useSearchParams, useParams, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { Row, Col, ListGroup, Image, Form, Button, Card } from 'react-bootstrap'
-import './cartscreen.css'
-import Navbar from '../../Components/Header/Navbar'
-import { FaTrash } from 'react-icons/fa';
 import { addToCart, removeFromCart } from '../../Actions/cartAction'
+import { FaTrash } from 'react-icons/fa';
+import Navbar from '../../Components/Header/Navbar'
+import "../cart/cartscreen.css"
 
 
 function CartScreen() {
@@ -35,15 +35,13 @@ function CartScreen() {
   }
   return (
     <Row>
-      <Navbar />
-      <br></br>
-      <br></br>
+        <Navbar/>
       <Col md={8}>
         <h1>Shopping Cart</h1>
         {cartItems.length === 0 ? (
-          <div variant='info'>
+          <h1 variant='info'>
             Your cart is empty <Link to='/'>Go Back</Link>
-          </div>
+          </h1>
         ) : (
           <ListGroup variant='flush'>
             {cartItems.map(item => (
@@ -57,12 +55,12 @@ function CartScreen() {
                   </Col>
                   <Col md={2} className="wrap-con">
                     <div className='pro-name'>
-                      Rs:{item.price}
-                    </div>
+                    Rs:{item.price}
+                     </div>
                   </Col>
                   <Col md={3} className="wrap-con">
                     <Form.Control
-                      className="cart-count"
+                    className="cart-count"
                       as="select"
                       value={item.qty}
                       onChange={(e) => dispatch(addToCart(item.product, Number(e.target.value)))}
@@ -78,7 +76,7 @@ function CartScreen() {
                     </Form.Control>
                   </Col>
                   <Col md={1} className="wrap-con">
-                    <Button className="cart-count" type="button" variant="light" onClick={() => removeFromCartHandler(item.product)}>
+                  <Button className="cart-count" type="button" variant="light" onClick={() => removeFromCartHandler(item.product)}>
                       <FaTrash />
                     </Button>
                   </Col>

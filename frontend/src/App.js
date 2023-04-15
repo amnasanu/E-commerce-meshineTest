@@ -5,6 +5,7 @@ import { HashRouter as Router, Route, Routes } from 'react-router-dom'
 import Login from './Screens/login/Login'
 import ProductDetail from './Screens/productScreen/ProductDetail'
 import CartScreen from './Screens/cart/CartScreen';
+import Cartscreen from './Screens/cartScreen/CartScreen';
 
 function App() {
   return (
@@ -16,8 +17,7 @@ function App() {
         <Route index path='/login' element={<Login />} />
         <Route path='/product/:id' element={<ProductDetail />} />
         <Route path='/cart/:id' element={<CartScreen en />} />
-
-
+        <Route path='/cart' element={<Cartscreen en />} />
       </Routes>
     </Router>
   );
