@@ -16,7 +16,7 @@ function Login() {
 
     useEffect(() => {
         if (userInfo) {
-            navigate('/home')
+            navigate('/')
         }
     }, [userInfo])
 

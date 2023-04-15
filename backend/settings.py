@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -43,6 +44,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'corsheaders',
+    'storages',
 ]
 
 REST_FRAMEWORK = {
@@ -50,6 +52,8 @@ REST_FRAMEWORK = {
 		'rest_framework_simplejwt.authentication.JWTAuthentication',
 	],
 }
+
+
 
 # JWT AUTHENTICATION
 from datetime import timedelta
@@ -86,7 +90,11 @@ SIMPLE_JWT = {
 }
 
 
+MEDIA_ROOT = BASE_DIR / 'static/images'
+MEDIA_URL = '/images/'
+
 MIDDLEWARE = [
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -105,7 +113,7 @@ ROOT_URLCONF = 'backend.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR,'frontend/build')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -125,10 +133,14 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+   'default': {
+       'ENGINE': 'django.db.backends.postgresql',
+       'NAME': 'meshinetask',
+       'USER': 'meshinetask',
+       'PASSWORD': 'amnasanu',
+       'HOST': 'meshinetask.cmzmjdwxwvsa.us-east-1.rds.amazonaws.com',
+       'PORT': '5432',
+   }
 }
 
 
@@ -168,7 +180,27 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+STATICFILES_DIRS = [
+
+    BASE_DIR /'frontend/build/static'
+]
+STATIC_ROOT=BASE_DIR / 'staticfiles'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
+AWS_ACCESS_KEY_ID = 'AKIAVYWOQWTMBWQ5GY5A'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME ='e-commerce-meshinetest'
+AWS_S3_REGION_NAME = 'us-east-1'
+AWS_QUERYSTRING_AUTH = False
+AWS_S3_FILE_OVERWRITE = True
+AWS_DEFAULT_ACL = None
+
+
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
