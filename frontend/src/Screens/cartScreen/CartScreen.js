@@ -15,6 +15,18 @@ function CartScreen() {
   const [searchParams, setSearchParams] = useSearchParams()
   const qty = searchParams.get('qty')
 
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
+  
+  const checkoutHandler = () => {
+    if (userInfo) {
+      navigate('/cart');
+    } else {
+      navigate('/login?redirect=/cart');
+    }
+  };
+
 
 
   const dispatch = useDispatch()
@@ -30,9 +42,7 @@ function CartScreen() {
   const removeFromCartHandler = (id) => {
     dispatch(removeFromCart(id))
   }
-  const checkoutHandler = () => {
-    navigate('/login?redirect=/cart')
-  }
+
   return (
     <Row>
         <Navbar/>

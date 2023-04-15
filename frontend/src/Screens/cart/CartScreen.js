@@ -8,12 +8,27 @@ import { FaTrash } from 'react-icons/fa';
 import { addToCart, removeFromCart } from '../../Actions/cartAction'
 
 
+
+
 function CartScreen() {
   const match = useParams()
   let navigate = useNavigate()
   const productID = match.id
   const [searchParams, setSearchParams] = useSearchParams()
   const qty = searchParams.get('qty')
+
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
+  
+  const checkoutHandler = () => {
+    if (userInfo) {
+      navigate('/cart');
+    } else {
+      navigate('/login?redirect=/cart');
+    }
+  };
 
 
 
@@ -30,9 +45,7 @@ function CartScreen() {
   const removeFromCartHandler = (id) => {
     dispatch(removeFromCart(id))
   }
-  const checkoutHandler = () => {
-    navigate('/login?redirect=/cart')
-  }
+
   return (
     <Row>
       <Navbar />
